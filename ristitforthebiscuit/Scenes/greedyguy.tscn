@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://2pgmcljmg51h"]
+
+[ext_resource type="Script" uid="uid://vucslfagx2aj" path="res://Scripts/greedyguy.gd" id="1_6j5su"]
+[ext_resource type="Texture2D" uid="uid://duatkwvr7qbov" path="res://Assets/BBenemyTest.png" id="1_oe334"]
+[ext_resource type="PackedScene" uid="uid://cc4b82w13foek" path="res://Scenes/killzone.tscn" id="2_6j5su"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htuo0"]
+atlas = ExtResource("1_oe334")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqk4t"]
+atlas = ExtResource("1_oe334")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5p7e6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htuo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqk4t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qqmdp"]
+radius = 8.0
+
+[node name="greedyguy" type="Node2D"]
+script = ExtResource("1_6j5su")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_5p7e6")
+autoplay = "default"
+frame = 1
+frame_progress = 1.0
+
+[node name="killzone" parent="." instance=ExtResource("2_6j5su")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_qqmdp")
+
+[node name="raycastright" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(10, 0)
+
+[node name="raycastleft" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(-10, 0)
